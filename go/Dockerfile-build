@@ -1,0 +1,10 @@
+# Build stage
+FROM golang:stretch
+
+COPY helloworld.go /src/helloworld.go
+
+WORKDIR /src
+
+RUN CGO_ENABLED=0 go build -o helloworld -ldflags="-w -s"
+
+ENTRYPOINT [ "./helloworld" ]

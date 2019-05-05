@@ -1,0 +1,38 @@
+version: '3'
+services:
+  hello:
+    build: .
+    ports:
+      - "4000"
+    networks:
+      - "workshop"
+    labels:
+      - "traefik.backend=hello"
+      - "traefik.port=80"
+      - "traefik.frontend.rule=Host:localhost"
+    depends_on: 
+      - hello_db
+  hello_db:
+    image: "postgres:11"
+    ports:
+      - 5432:5432
+    networks:
+      - "workshop"
+    volumes: 
+      - workshop_data:/var/lib/postgresql/data
+  lb:
+    image: traefik
+    command: -c /dev/null --web --docker --docker.domain=localhost --logLevel=INFO 
+    ports:
+      - 4000:80
+      - 8080:8080
+    networks:
+      - "workshop"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  workshop:
+
+volumes:
+  workshop_data:

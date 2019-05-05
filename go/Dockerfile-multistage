@@ -1,0 +1,19 @@
+# Build stage
+FROM golang:stretch AS build-stage
+
+COPY helloworld.go /src/helloworld.go
+
+WORKDIR /src
+
+RUN CGO_ENABLED=0 go build -o helloworld -ldflags="-w -s"
+
+
+
+# Final stage
+FROM alpine
+
+WORKDIR /app
+
+COPY --from=build-stage /src/helloworld /app/
+
+ENTRYPOINT ./helloworld
