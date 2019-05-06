@@ -24,5 +24,7 @@ EXPOSE 80
 ENV NAME Universe
 
 # Run app.py when the container launches
-CMD ["python", "app.py"]
+ENTRYPOINT python
+
+CMD app.py
 

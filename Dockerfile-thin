@@ -24,9 +24,12 @@ EXPOSE 80
 ENV NAME Universe
 
 RUN RUN apt-get clean && \
+    apt-get remove build-essential gcc && \
     apt-get autoremove --purge -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Run app.py when the container launches
-CMD ["python", "app.py"]
+ENTRYPOINT python
+
+CMD app.py
 
