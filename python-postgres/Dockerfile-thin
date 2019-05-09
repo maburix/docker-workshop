@@ -23,8 +23,10 @@ EXPOSE 80
 # Define environment variable
 ENV NAME Universe
 
+RUN apt-get clean && \
+    apt-get remove build-essential gcc && \
+    apt-get autoremove --purge -y && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 # Run app.py when the container launches
-ENTRYPOINT python
-
-CMD app.py
-
+ENTRYPOINT python app.py

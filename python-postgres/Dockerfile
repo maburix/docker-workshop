@@ -4,11 +4,6 @@
 # Use an official Python runtime as a parent image
 FROM python:3.7-slim
 
-ARG NAME
-
-# Define environment variable
-ENV NAME ${NAME:-Universe}
-
 LABEL MAINTAINER foo@bar.com
 
 # Set the working directory to /app
@@ -25,8 +20,11 @@ RUN apt-get update && \
 # Make port 80 available to the world outside this container
 EXPOSE 80
 
-# Run app.py when the container launches
-ENTRYPOINT python
+# Define environment variable
+ENV NAME Universe
 
-CMD app.py
+# Run app.py when the container launches
+ENTRYPOINT python app.py
+
+# CMD app.py
 

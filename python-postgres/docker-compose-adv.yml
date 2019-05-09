@@ -6,8 +6,8 @@ services:
       dockerfile: Dockerfile-args
       args:
         - NAME=Earth
-    environment:
-      - NAME=Mars
+    # environment:
+    #   - NAME=Mars
     ports:
       - "4000"
     networks:

@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  hello:
+    build: 
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    ports:
+      - 4000:80
+    command: sleep infinity
+    volumes:
+      # - ~/.gitconfig:/root/.gitconfig
+      - ..:/workspace
+    networks:
+      - "workshop"
+
+
+  db:
+    image: postgres
+    restart: always
+    networks:
+      - "workshop"
+    ports: 
+      - 5432:5432
+
+networks:
+  workshop:
+
+volumes:
+  workshop_data:
